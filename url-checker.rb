@@ -6,11 +6,11 @@
 
 require 'typhoeus'
 
-url_list = ARGV[0]
-@ua = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:24.0) Gecko/20100101 Firefox/24.0"
+url_list    = ARGV[0]
+@ua         = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:24.0) Gecko/20100101 Firefox/24.0"
 @good_sites = []
-@bad_sites = []
-@timeouts = []
+@bad_sites  = []
+@timeouts   = []
 
 def add_http_scheme(url)
   url =~ /^https?/ ? url : "http://#{url}"
@@ -39,35 +39,34 @@ if File.exists?(url_list)
 file.each_line do |url|
   url = url.chop
   
-  #http_url = add_http_scheme(url)
-  #https_url = add_https_scheme(url)
+  http_url  = add_http_scheme(url)
+  https_url = add_https_scheme(url)
 
-  http_response = request(url)
-  #https_response = request(https_url)
+  http_response  = request(http_url)
+  https_response = request(https_url)
 
-  puts "Checking: #{url} [#{http_response.code}]"
-  #puts "Checking: #{https_url} [#{https_response.code}]"
+  puts "Checking: #{http_url} [#{http_response.code}]"
+  puts "Checking: #{https_url} [#{https_response.code}]"
 
   # HTTP 
   if http_response.code == 200
-  	@good_sites << url
+  	@good_sites << http_url
   elsif http_response.timed_out?
-  	@timeouts << url
-  	@bad_sites << url
+  	@timeouts << http_url
+  	@bad_sites << http_url
   else
-  	@bad_sites << url
+  	@bad_sites << http_url
   end
 
   # HTTPS
-  #if https_response.code == 200
-  #	@good_sites << https_url
-  #elsif https_response.timed_out?
-  #	@timeouts << https_url
-  #	@bad_sites << https_url
-  #else
-  #	@bad_sites << https_url
-  #end
-  
+  if https_response.code == 200
+  	@good_sites << https_url
+  elsif https_response.timed_out?
+  	@timeouts << https_url
+  	@bad_sites << https_url
+  else
+  	@bad_sites << https_url
+  end
 end
 
 puts
