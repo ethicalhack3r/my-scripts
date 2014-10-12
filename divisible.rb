@@ -11,5 +11,5 @@ def divisible?(i)
 end
 
 (2...@input.to_i).each_with_index do |i|
-  puts "#{@input} is divisible by #{i}" if divisible?(i)
+	puts "#{@input} is divisible by #{i}" if divisible?(i)
 end
