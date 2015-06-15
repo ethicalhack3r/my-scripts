@@ -26,7 +26,7 @@ urls.each_with_index do |url, index|
                            :headers => {'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:38.0) Gecko/20100101 Firefox/38.0'},
                            :timeout => 1000 )
 
-  matches = response.response_headers.scan(Regexp.new(regex))
+  matches = response.response_headers.scan(Regexp.new(regex, true))
 
   puts
   puts "[#{index}] #{url}"
