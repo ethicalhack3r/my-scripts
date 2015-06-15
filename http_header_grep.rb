@@ -8,7 +8,10 @@
 require 'typhoeus'
 require 'uri'
 
-puts 'Usage: "regex" urls.txt' if ARGV[0].nil?
+if ARGV[0].nil?
+  puts "Usage: ruby #{__FILE__} \"regex\" urls.txt"
+  exit
+end
 
 regex  = ARGV[0]
 urls   = File.read(ARGV[1]).split("\n")
