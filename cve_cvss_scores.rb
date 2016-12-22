@@ -6,7 +6,7 @@
 require 'typhoeus'
 require 'nokogiri'
 
-nist_url   = 'http://web.nvd.nist.gov/view/vuln/detail?vulnId='
+nist_url   = 'https://web.nvd.nist.gov/view/vuln/detail?vulnId='
 cve_hash   = {}
 cve_output = ''
 

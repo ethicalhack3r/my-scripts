@@ -13,7 +13,10 @@
 require 'typhoeus'
 require 'uri'
 
-puts "Usage: filename urls.txt" if ARGV[0].nil?
+if ARGV[0].nil?
+  puts "Usage: filename urls.txt"
+  exit
+end
 
 filename  = ARGV[0]
 urls      = File.read(ARGV[1]).split("\n")

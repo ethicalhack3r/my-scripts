@@ -6,7 +6,7 @@
 
 require 'ipaddress'
 
-ips = IPAddress.parse ""
+ips = IPAddress.parse "0.0.0.0/27"
 
 ips.each do |ip|
   puts ip
