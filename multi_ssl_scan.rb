@@ -10,7 +10,7 @@ domains = File.read(ARGV[0]).split("\n")
 
 domains.each_with_index do |domain, index|
   p domain
-  `java -jar /Users/ryan/Tools/TestSSLServer.jar #{domain}:443 >> /Users/ryan/Desktop/ssl/#{domain}.txt`
+  `java -jar /Users/ryan/Tools/ssl/TestSSLServer.jar #{domain} >> /Users/ryan/Desktop/ssl/#{domain}.txt`
 end
 
 exit
